@@ -1,0 +1,13 @@
+micronaut:
+  application:
+    name: foodTrackerMicronaut
+  server:
+    port: 8083
+datasources:
+  default:
+    url: jdbc:postgresql://172.17.0.1:5434/food_tracking_micronaut;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.postgresql.Driver
+    username: fooduser
+    password: food
+    schema-generate: CREATE_DROP
+jpa.default.properties.hibernate.hbm2ddl.auto: update

@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: org.acme
+testFramework: junit
+sourceLanguage: java
+buildTool: maven
+features: [annotation-api, app-name, data, data-jpa, docker, graalvm, h2, http-client, java, java-application, jdbc-tomcat, junit, logback, maven, netty-server, readme, shade, spring, spring-boot, spring-data-jpa, spring-web, yaml]
