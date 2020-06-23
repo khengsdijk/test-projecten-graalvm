@@ -16,6 +16,7 @@ public class SupplierResource {
     @Inject
     SupplierService service;
 
+    @GET
     public List<Supplier> all(){
         return service.findAll();
     }

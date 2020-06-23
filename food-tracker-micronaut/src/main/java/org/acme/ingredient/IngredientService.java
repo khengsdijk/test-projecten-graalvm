@@ -1,11 +1,11 @@
 package org.acme.ingredient;
 
+
 import org.acme.supplier.SupplierService;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.inject.Singleton;
 
-@Service
+@Singleton
 public class IngredientService {
 
     private final IngredientRepository repository;

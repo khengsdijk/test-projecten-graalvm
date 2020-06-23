@@ -1,11 +1,18 @@
 package org.acme.supplier;
 
-import io.micronaut.http.HttpResponse;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Error;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.Put;
+import io.micronaut.http.annotation.Delete;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Body;
+import io.micronaut.http.annotation.Produces;
+import io.micronaut.http.annotation.PathVariable;
 
-@RestController
+@Controller("/supplier")
 public class SupplierController {
 
     private final SupplierService service;
@@ -14,28 +21,31 @@ public class SupplierController {
         this.service = service;
     }
 
-    @GetMapping("/supplier")
-    public HttpResponse getAll(){
-        return HttpResponse.ok().body(service.findAll());
+    @Get
+    @Produces(MediaType.APPLICATION_JSON)
+    public Iterable<Supplier> getAll(){
+        return service.findAll();
     }
 
-    @GetMapping("/supplier/{id}")
+    @Get("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Error(exception = SupplierNotfoundException.class)
     public Supplier one(@PathVariable Long id){
         return service.findById(id);
     }
 
-    @PostMapping("/supplier")
-    public Supplier newSupplier(@RequestBody Supplier supplier){
+    @Post
+    @Produces(MediaType.APPLICATION_JSON)
+    public Supplier newSupplier(@Body Supplier supplier){
         return service.saveSupplier(supplier);
     }
 
-    @PutMapping("/supplier/{id}")
-    public Supplier update(@RequestBody Supplier newSupplier, Long id){
-
+    @Put("/{id}")
+    public Supplier update(@Body Supplier newSupplier, Long id){
         return service.updateSupplier(newSupplier, id);
     }
 
-    @DeleteMapping("/supplier/{id}")
+    @Delete("/{id}")
     public void deleteSupplier(@PathVariable Long id){
         service.deleteSupplier(id);
     }

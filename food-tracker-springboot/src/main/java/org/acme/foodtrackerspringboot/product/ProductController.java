@@ -7,7 +7,7 @@ import java.util.List;
 @RestController
 public class ProductController {
 
-    private ProductService service;
+    private final ProductService service;
 
     public ProductController(ProductService service) {
         this.service = service;
@@ -35,7 +35,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/product/{id}")
-    public void deleteProduct(@PathVariable Long id){
+    public String deleteProduct(@PathVariable Long id){
         service.deleteProduct(id);
+        return "deleted product with id: " + id;
     }
 }

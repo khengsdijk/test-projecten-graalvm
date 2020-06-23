@@ -11,7 +11,7 @@
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/foodtracker-quarkus
+# docker run -i --rm -p 8080:8082 quarkus/foodtracker-quarkus
 #
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1

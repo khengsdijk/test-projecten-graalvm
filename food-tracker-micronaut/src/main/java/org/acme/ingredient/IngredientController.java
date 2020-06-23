@@ -1,10 +1,19 @@
 package org.acme.ingredient;
 
-import org.springframework.web.bind.annotation.*;
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.Put;
+import io.micronaut.http.annotation.Delete;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Body;
+import io.micronaut.http.annotation.Produces;
+import io.micronaut.http.annotation.PathVariable;
 
-import java.util.List;
+import javax.inject.Inject;
 
-@RestController
+
+@Controller("/ingredient")
 public class IngredientController {
 
     private  final IngredientService service;
@@ -13,29 +22,33 @@ public class IngredientController {
         this.service = service;
     }
 
-
-    @GetMapping("/ingredient")
+    @Get
+    @Produces(MediaType.APPLICATION_JSON)
     public Iterable<Ingredient> getAll(){
         return service.findAll();
     }
 
-    @GetMapping("/ingredient/{id}")
+    @Get("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Ingredient one(@PathVariable Long id){
         return service.findById(id);
     }
 
-    @PostMapping("/ingredient")
-    public Ingredient newIngredient(@RequestBody Ingredient ingredient){
+    @Post
+    @Produces(MediaType.APPLICATION_JSON)
+    public Ingredient newIngredient(@Body Ingredient ingredient){
         return service.saveIngredient(ingredient);
     }
 
-    @PutMapping("/ingredient/{id}")
-    public  Ingredient updateIngredient(@RequestBody Ingredient newIngredient, Long id){
+    @Put("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public  Ingredient updateIngredient(@Body Ingredient newIngredient,@PathVariable Long id){
 
         return service.updateIngredient(newIngredient, id);
     }
 
-    @DeleteMapping("/ingredient/{id}")
+    @Delete("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public void deleteIngredient(@PathVariable Long id){
         service.deleteIngredient(id);
     }

@@ -18,7 +18,7 @@ public class Supplier {
     // such as farm/laboratory/other ingredient producer
     private String type;
 
-    protected Supplier(){}
+    public Supplier(){}
 
     public Supplier(String name, String country, String type) {
         this.name = name;

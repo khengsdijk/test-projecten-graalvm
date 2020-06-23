@@ -1,0 +1,4 @@
+[
+  ["java.sql.Connection","javax.sql.PooledConnection"],
+  ["java.sql.PreparedStatement"]
+]

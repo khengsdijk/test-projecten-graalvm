@@ -1,8 +1,17 @@
 package org.acme.store;
 
-import org.springframework.web.bind.annotation.*;
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.Put;
+import io.micronaut.http.annotation.Delete;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Body;
+import io.micronaut.http.annotation.Produces;
+import io.micronaut.http.annotation.PathVariable;
 
-@RestController
+
+@Controller("/store")
 public class StoreController {
 
     private final StoreService service;
@@ -11,28 +20,31 @@ public class StoreController {
         this.service = service;
     }
 
-    @GetMapping("/store")
+    @Get
+    @Produces(MediaType.APPLICATION_JSON)
     public Iterable<Store> getAll(){
         return service.findAll();
     }
 
-    @GetMapping("/store/{id}")
+    @Get("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Store one(@PathVariable Long id){
         return service.findById(id);
     }
 
-    @PostMapping("/store")
-    public Store newStore(@RequestBody Store store){
+    @Post
+    @Produces(MediaType.APPLICATION_JSON)
+    public Store newStore(@Body Store store){
         return service.saveStore(store);
     }
 
-    @PutMapping("/store/{id}")
-    public Store updateStore(@RequestBody Store newStore, Long id){
-
+    @Put("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Store updateStore(@Body Store newStore, @PathVariable Long id){
         return service.updateStore(newStore, id);
     }
 
-    @DeleteMapping("/store/{id}")
+    @Delete("/{id}")
     public void deleteStore(@PathVariable Long id){
         service.deleteById(id);
     }

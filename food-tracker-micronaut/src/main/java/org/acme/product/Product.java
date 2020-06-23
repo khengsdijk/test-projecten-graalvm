@@ -4,6 +4,7 @@ import org.acme.ingredient.Ingredient;
 import javax.persistence.*;
 import java.util.List;
 
+
 @Entity
 public class Product {
 
@@ -19,7 +20,7 @@ public class Product {
     private String brand;
     private String category;
 
-    protected Product(){}
+    public Product(){}
 
     public Product(String name, List<Ingredient> ingredients, String brand, String category) {
         this.name = name;

@@ -1,8 +1,9 @@
 package org.acme.supplier;
 
-import org.springframework.stereotype.Service;
 
-@Service
+import javax.inject.Singleton;
+
+@Singleton
 public class SupplierService {
 
     private final SupplierRepository repository;

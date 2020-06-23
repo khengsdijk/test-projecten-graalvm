@@ -6,7 +6,7 @@ RUN gu install native-image
 COPY . /home/app/food-tracker-micronaut
 WORKDIR /home/app/food-tracker-micronaut
 
-RUN native-image --no-server -cp target/food-tracker-micronaut-*.jar
+RUN native-image --no-server --initialize-at-build-time=org.postgresql.Driver,org.postgresql.util.SharedTimer -cp target/food-tracker-micronaut-*.jar
 
 FROM frolvlad/alpine-glibc
 RUN apk update && apk add libstdc++

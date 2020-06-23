@@ -2,7 +2,6 @@ package org.acme.foodtrackerspringboot.product;
 import org.acme.foodtrackerspringboot.ingredient.Ingredient;
 import org.acme.foodtrackerspringboot.ingredient.IngredientService;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 

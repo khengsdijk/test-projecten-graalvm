@@ -1,12 +1,12 @@
 package org.acme.store;
 
+
 import org.acme.product.Product;
 import org.acme.product.ProductService;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.inject.Singleton;
 
-@Service
+@Singleton
 public class StoreService {
 
     private final StoreRepository repository;

@@ -1,40 +1,50 @@
 package org.acme.product;
 
-import org.springframework.web.bind.annotation.*;
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.Put;
+import io.micronaut.http.annotation.Delete;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Body;
+import io.micronaut.http.annotation.Produces;
+import io.micronaut.http.annotation.PathVariable;
 
-import java.util.List;
 
-@RestController
+@Controller("/product")
 public class ProductController {
 
-    private ProductService service;
+    private final ProductService service;
 
     public ProductController(ProductService service) {
         this.service = service;
     }
 
-    @GetMapping("/product")
+    @Get
+    @Produces(MediaType.APPLICATION_JSON)
     public Iterable<Product> getAll(){
         return service.findAll();
     }
 
-    @GetMapping("/product/{id}")
+    @Get("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Product one(@PathVariable Long id){
         return service.findById(id);
     }
 
-    @PostMapping("/product")
-    public Product newProduct(@RequestBody Product product){
+    @Post
+    @Produces(MediaType.APPLICATION_JSON)
+    public Product newProduct(@Body Product product){
         return service.SaveProduct(product);
     }
 
-    @PutMapping("/product/{id}")
-    public Product updateProduct(@RequestBody Product newProduct, Long id){
-
+    @Put("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Product updateProduct(@Body Product newProduct, @PathVariable Long id){
         return service.updateProduct(newProduct, id);
     }
 
-    @DeleteMapping("/product/{id}")
+    @Delete("/{id}")
     public void deleteProduct(@PathVariable Long id){
         service.deleteProduct(id);
     }

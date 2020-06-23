@@ -1,12 +1,12 @@
 package org.acme.product;
 
+
 import org.acme.ingredient.Ingredient;
 import org.acme.ingredient.IngredientService;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.inject.Singleton;
 
-@Service
+@Singleton
 public class ProductService {
 
 

@@ -17,7 +17,6 @@ public class SupplierService {
     @Context
     private Providers providers;
 
-    @GET
     public List<Supplier> findAll(){
         return supplierRepository.listAll();
     }

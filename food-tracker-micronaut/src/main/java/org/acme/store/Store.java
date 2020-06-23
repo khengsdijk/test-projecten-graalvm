@@ -22,7 +22,7 @@ public class Store {
     @OneToMany
     private List<Product> products;
 
-    protected Store() {
+    public Store() {
     }
 
     public Store(String name, String country, List<Product> products) {

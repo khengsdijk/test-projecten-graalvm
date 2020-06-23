@@ -15,11 +15,7 @@ public class Supplier {
 
     private String country;
 
-    // such as farm/laboratory/other ingredient producer
     private String type;
-
-//    @OneToMany(mappedBy = "supplier")
-//    private List<Ingredient> ingredients;
 
     protected Supplier(){}
 

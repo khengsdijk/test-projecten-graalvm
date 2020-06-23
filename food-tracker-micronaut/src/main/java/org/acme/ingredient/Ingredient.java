@@ -2,7 +2,11 @@ package org.acme.ingredient;
 
 import org.acme.supplier.Supplier;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.ManyToOne;
+
 
 @Entity
 public class Ingredient {
@@ -18,7 +22,7 @@ public class Ingredient {
     @ManyToOne
     private Supplier supplier;
 
-    protected  Ingredient(){}
+    public  Ingredient(){}
 
     public Ingredient(String name, Double calories, Supplier supplier) {
         this.name = name;

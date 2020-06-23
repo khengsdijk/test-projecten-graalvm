@@ -6,7 +6,7 @@ import java.util.*;
 @RestController
 public class IngredientController {
 
-    private  final IngredientService service;
+    private final IngredientService service;
 
     public IngredientController(IngredientService service) {
         this.service = service;
@@ -34,8 +34,9 @@ public class IngredientController {
     }
 
     @DeleteMapping("/ingredient/{id}")
-    public void deleteIngredient(@PathVariable Long id){
+    public String deleteIngredient(@PathVariable Long id){
         service.deleteIngredient(id);
+        return "deleted ingredient with id: " + id;
     }
 
 }
