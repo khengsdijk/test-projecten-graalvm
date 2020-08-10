@@ -1,0 +1,10 @@
+# docker build -t micronaut/foodtracker-spring-jvm .
+#
+# to run:
+# docker run -i --rm -p 8083:8083 micronaut/foodtracker-micronaut-jvm
+
+FROM openjdk:11.0.7-jdk
+
+COPY target/food-tracker-micronaut-0.1.jar app.jar
+
+ENTRYPOINT ["java","-jar","/app.jar"]

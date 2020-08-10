@@ -3,7 +3,6 @@
 ARTIFACT=food-tracker-springboot
 MAINCLASS=org.acme.foodtrackerspringboot.FoodTrackerSpringbootApplication
 VERSION=1
-#FEATURE='file:///home/koen/Documents/hva/afstudeeropdracht/testprojectenGraal/spring-graal-native-0.6.0.RELEASE.jar'
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
@@ -25,7 +24,6 @@ cp -R META-INF BOOT-INF/classes
 LIBPATH=`find BOOT-INF/lib | tr '\n' ':'`
 
 CP=BOOT-INF/classes:$LIBPATH
-#CP=BOOT-INF/classes:$LIBPATH:$FEATURE
 
 GRAALVM_VERSION=`native-image --version`
 
@@ -33,19 +31,10 @@ GRAALVM_VERSION=`native-image --version`
 echo "Compiling $ARTIFACT with $GRAALVM_VERSION"
 { time native-image \
   --verbose \
-  --no-server \
+  -Dspring.native.remove-jmx-support=true \
+  -Dspring.native.remove-spel-support=true \
   -H:Name=$ARTIFACT \
-  --no-fallback \
-  --allow-incomplete-classpath \
-  --report-unsupported-elements-at-runtime \
-  -H:-UseServiceLoaderFeature \
-  -H:+ReportExceptionStackTraces \
-  -H:+TraceClassInitialization \
-  -Dspring.graal.remove-unused-autoconfig=true \
-  -Dspring.graal.skip-logback=true \
-  -Ddebug=true \
-  -Dspring.graal.verbose=true \
-  --initialize-at-build-time=org.springframework.util.unit,net.bytebuddy.implementation.bind.annotation,net.bytebuddy.description.type,net.bytebuddy.ClassFileVersion,net.bytebuddy.matcher \
+  -H:+RemoveSaturatedTypeFlows \
   -cp $CP $MAINCLASS >> output.txt ; } 2>> output.txt
 
 if [[ -f $ARTIFACT ]]

@@ -4,7 +4,7 @@
 # Before building the docker image run:
 #
 # mvn package -Pnative -Dquarkus.native.container-build=true
-#
+#   
 # Then, build the image with:
 #
 # docker build -f src/main/docker/Dockerfile.native -t quarkus/foodtracker-quarkus .

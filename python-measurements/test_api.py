@@ -16,7 +16,7 @@ class ApiCalls:
 
     # entity is one of the constants
     def get_entity(self, id):
-        response = requests.get(self.LOCAL_URL + self.project_port + self.entity + "/" + id)
+        response = requests.get(self.LOCAL_URL + self.project_port + self.entity + "/" + str(id))
         return response.json()
 
 
@@ -26,8 +26,8 @@ class ApiCalls:
 
 
     def delete_entity(self, id):
-        response = requests.delete(self.LOCAL_URL + self.project_port + self.entity + "/" + id)
-        return response.json()
+        response = requests.delete(self.LOCAL_URL + self.project_port + self.entity + "/" + str(id))
+        
 
 
     def create_entity(self, entity_data):
@@ -41,9 +41,7 @@ class ApiCalls:
 
 
     def update_entity(self, entity_data, id):
-        response = requests.put(self.LOCAL_URL + self.project_port + self.entity + "/" + id, data=json.dumps(entity_data), headers=self.headers)
-        return response.json()
-
+        response = requests.put(self.LOCAL_URL + self.project_port + self.entity + "/" + str(id), data=json.dumps(entity_data), headers=self.headers)
 
 
 #maybe get the project as a commandline argument 
@@ -136,7 +134,53 @@ class PerformTests():
         time.sleep(2)
         self.store_api.get_entities()
 
-    
+
+    def delete_entities(self):
+        time.sleep(2)
+        entity_id = json.loads(random.choice(self.suppliers))
+        self.supplier_api.delete_entity(entity_id['id'] )
+        time.sleep(2)
+        entity_id = json.loads(random.choice(self.ingredients))
+        self.ingredient_api.delete_entity(entity_id['id'])
+        time.sleep(2)
+        entity_id = json.loads(random.choice(self.products))
+        self.product_api.delete_entity(entity_id['id'])
+        time.sleep(2)
+        entity_id = json.loads(random.choice(self.stores))
+        self.store_api.delete_entity(entity_id['id'])
+
+
+    def update_entities(self):
+        time.sleep(2)
+        entity_id = json.loads(random.choice(self.suppliers))
+        self.supplier_api.update_entity(json.loads(random.choice(self.suppliers)), entity_id['id'] )
+        time.sleep(2)
+        entity_id = json.loads(random.choice(self.ingredients))
+        self.ingredient_api.update_entity(json.loads(random.choice(self.ingredients)), entity_id['id'])
+        time.sleep(2)
+        entity_id = json.loads(random.choice(self.products))
+        self.product_api.update_entity(json.loads(random.choice(self.ingredients)), entity_id['id'])
+        time.sleep(2)
+        entity_id = json.loads(random.choice(self.stores))
+        self.store_api.update_entity(json.loads(random.choice(self.ingredients)), entity_id['id'])
+
+
     def run_test_requests(self):
-        self.add_entities()
-        self.retrieve_entities()
+        
+        # define percentage of which function is used more
+        # this is done so that no empty requests will be made
+        create = 0.40
+        get = 0.20
+        delete = 0.20
+        update = 0.20
+        
+        number_of_calls = random.randint(20, 100)
+        
+        for x in range( int(number_of_calls * create)):
+            self.add_entities()
+        for x in range( int(number_of_calls * get)):
+            self.retrieve_entities()
+        for x in range( int(number_of_calls * get)):
+            self.delete_entities()            
+        for x in range( int(number_of_calls * get)):
+            self.update_entities() 

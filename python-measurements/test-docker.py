@@ -26,7 +26,7 @@ def run_image(project_name, image_name, port):
     time.sleep(5)
 
     # the measured time
-    runtime = time.time() + 60 * 0.5
+    runtime = time.time() + 60 * 1
 
     memoryThread = threading.Thread(target=measure_memory, args=(container, runtime))
     requestThread = threading.Thread(target=make_request, args=(runtime, port))
@@ -63,4 +63,21 @@ quarkus_images = [
     'foodtracker-quarkus-enterprise',
 ]
 
+
+micronaut_tag_name = 'micronaut/'
+micronaut_images = [
+    'foodtracker-micronaut-jvm',
+    'foodtracker-micronaut-community',
+    'foodtracker-micronaut-enterprise',
+]
+
+spring_tag_name = 'spring/'
+spring_images = [
+    'foodtracker-spring-jvm',
+    'foodtracker-spring-community'
+]
+
+
 run_project(quarkus_tag_name, quarkus_images, QUARKUS_PORT)
+run_project(micronaut_tag_name, micronaut_images, MICRONAUT_PORT)
+run_project(spring_tag_name, spring_images, SPRING_PORT)
